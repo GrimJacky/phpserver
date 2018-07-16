@@ -78,3 +78,6 @@ CMD ["/usr/bin/supervisord"]
 # Install GS to downgrade pdf files
 RUN apt-get update && apt-get -y install ghostscript && apt-get clean
 RUN apt-get update && apt-get install nodejs -y && apt-get update -y && apt-get install npm -y && npm i -g n && n stable && npm i -g pm2
+
+RUN apt-get install libpng-dev -y
+RUN npm install -g pngquant-bin
