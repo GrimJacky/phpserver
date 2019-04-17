@@ -22,7 +22,9 @@ RUN apt-get install -y \
     php7.1-mbstring \
     php7.1-gd \
     php7.1-xml \
-    php7.1-apcu
+    php7.1-apcu \
+    php-all-dev \
+    php7.1-xdebug
 
 RUN apt-get autoremove -y && \
     apt-get clean && \
@@ -76,11 +78,13 @@ RUN chmod -R 0644 /etc/cron.d
 CMD ["/usr/bin/supervisord"]
 
 
-RUN wget -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb && dpkg -i /tmp/libpng12.deb 
-&& rm /tmp/libpng12.deb
+RUN wget -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb && dpkg -i /tmp/libpng12.deb && rm /tmp/libpng12.deb
 
 RUN wget -q -O /tmp/libpng12.deb http://mirrors.kernel.org/ubuntu/pool/main/libp/libpng/libpng12-0_1.2.54-1ubuntu1_amd64.deb  && dpkg -i /tmp/libpng12.deb && rm /tmp/libpng12.deb
 
 # Install GS to downgrade pdf files
 RUN apt-get update && apt-get -y install ghostscript && apt-get clean
 RUN apt-get update && apt-get install nodejs -y && apt-get update -y && apt-get install npm -y && npm i -g n && n stable && npm i -g pm2 && npm install -g pngquant-bin
+
+# Install xdebug
+RUN wget http://xdebug.org/files/xdebug-2.7.1.tgz && tar -xvzf xdebug-2.7.1.tgz && cd xdebug-2.7.1 && phpize7.1 && alias xoff='phpdismod -s cli xdebug' && alias xon='phpenmod -s cli xdebug'
