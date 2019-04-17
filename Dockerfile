@@ -86,8 +86,4 @@ RUN apt-get update && apt-get install nodejs -y && apt-get update -y && apt-get 
 
 # Install xdebug
 RUN apt update && apt install php-all-dev -y && apt install php-xdebug -y 
-RUN yes | pecl install xdebug \
-    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
-    && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
-#RUN wget http://xdebug.org/files/xdebug-2.7.1.tgz && tar -xvzf xdebug-2.7.1.tgz && cd xdebug-2.7.1 && phpize7.1
+RUN wget http://xdebug.org/files/xdebug-2.7.1.tgz && tar -xvzf xdebug-2.7.1.tgz && cd xdebug-2.7.1 && phpize7.1
